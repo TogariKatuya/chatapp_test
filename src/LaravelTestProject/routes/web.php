@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
 
 Route::get('/login', function () {
-    return view('welcome');
+    return view('top');
 });
+
+Route::get('/', function () {
+    return view('search');
+});
+
+Route::post('/search', [BookController::class, 'search'])->name('search');

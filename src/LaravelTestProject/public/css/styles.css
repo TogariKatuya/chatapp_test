@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    /* ライトグレーの背景 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    /* 白色の背景 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+    /* ダークグレーのテキスト */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    /* グレーの水平線 */
+    width: 100%;
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555555;
+    /* グレーのテキスト */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    /* グレーのボーダー */
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333333;
+    /* ダークグレーのテキスト */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333333;
+    /* ダークグレーの背景 */
+    border: none;
+    color: #ffffff;
+    /* 白色のテキスト */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #555555;
+    /* より濃いグレーにホバー時に変更 */
+}
