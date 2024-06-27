@@ -15,7 +15,7 @@
         <form action="{{ route('search') }}" method="post">
             @csrf
             <div>
-                <label for="query">Title or Author:</label>
+                <label for="query">Title or Author</label>
                 <input type="text" id="query" name="query" placeholder="Enter title or author">
             </div>
             <button type="submit">Search</button>

@@ -6,78 +6,40 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    /**
+     * 検索リクエストを処理し、Google Books APIを使用して本を検索します。
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
-        // 検索条件を配列にする
-        $params = array(
-            'intitle' => $_POST["query"],
-        );
+        // リクエストからクエリを取得
+        $query = $request->input('query');
 
-        // 半角，全角の空白削除
-        $params["intitle"] = str_replace(array(" ", "　"), "", $params["intitle"]);
+        // クエリが空の場合は、エラーメッセージを表示して前のページにリダイレクト
+        if (!$query) {
+            return redirect()->back()->with('error', 'Please enter a search query.');
+        }
 
+        // 検索結果の最大数と開始インデックスの設定
         $maxResults = 40;
         $startIndex = 0;
 
-        $base_url = 'https://www.googleapis.com/books/v1/volumes?q=';
+        // Google Books APIのベースURLとクエリを結合してURLを生成
+        $base_url = 'https://www.googleapis.com/books/v1/volumes?q=' . urlencode($query);
+        $url = $base_url . '&maxResults=' . $maxResults . '&startIndex=' . $startIndex;
 
-        // クエリ未入力の時
-        // if ($params["intitle"] == "" && $params["inauthor"] == "") {
-        //     set_message(MESSAGE_NO_QUERY);
-        //     header('Location: post_search.php');
-        //     exit();
-        // }
+        // URLからJSONデータを取得
+        $json = file_get_contents($url);
 
-        // クエリが未入力でなければURLに追加
-        if ($params["intitle"] != "") {
-            $base_url .= 'intitle:' . $params["intitle"] . '+';
-        }
+        // JSONデータをPHPオブジェクトにデコード
+        $data = json_decode($json);
 
-        $params_url = substr($base_url, 0, -1);  // 末尾につく「+」を削除
-        $url = $params_url . '&maxResults=' . $maxResults . '&startIndex=' . $startIndex; // 最大40冊取得
-        $json = file_get_contents($url);  // 書籍情報を取得
-        $data = json_decode($json);  // デコード（objectに変換）
+        // 検索結果の本の情報を取得（itemsが存在する場合は取得し、存在しない場合は空の配列をセット）
+        $books = isset($data->items) ? $data->items : [];
 
-        if (isset($data->items)) {
-            $books = $data->items;
-        }
-        function get_author($book)
-        {
-            $author_count = 0;
-            $all_author = "";
-
-            foreach ($book->volumeInfo->authors as $author) {
-                if ($author_count < 2) {
-                    $all_author .= ($all_author ? ' ' : '') . $author;
-                }
-                $author_count++;
-            }
-
-            if ($author_count > 2) {
-                $all_author .= ' ...etc';
-            }
-
-            return $all_author;
-        }
-
-        function create_block($book, $count)
-        {
-            $image_link = $book->volumeInfo->imageLinks->thumbnail;
-            $title = $book->volumeInfo->title;
-            $author = get_author($book);
-
-            if (strlen($title) > 23) {
-                $title = mb_substr($title, 0, 6, "UTF-8") . '...';
-            }
-            print ("
-                <img src=$image_link alt='画像'>
-                <div>
-                    <hr>
-                    <h4> <b>『 $title 』</b> </h4>
-                    著者：$author ");
-            print ("</div>");
-        }
-
-
+        // 検索結果をビューに渡して表示
+        return view('search_results', compact('books'));
     }
 }
