@@ -22,17 +22,21 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
+        // リクエストからクエリを取得
         $query = $request->input('query');
 
+        // クエリが空の場合は、エラーメッセージを表示して前のページにリダイレクト
         if (!$query) {
             return redirect()->back()->with('error', 'Please enter a search query.');
         }
 
+        // 検索結果の最大数と開始インデックスの設定
         $maxResults = 40;
         $startIndex = 0;
 
         $books = $this->bookRepository->searchBooks($query, $maxResults, $startIndex);
 
+        // 検索結果をビューに渡して表示
         return view('search_results', compact('books'));
     }
 }
