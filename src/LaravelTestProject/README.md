@@ -213,7 +213,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ### ¥nginx 直下に default.conf を作成して編集する
 
     $ cd ..
-     $ cd nginx && touch default.conf
+    $ cd nginx && touch default.conf
 
 ・default.conf 記述内容
 
