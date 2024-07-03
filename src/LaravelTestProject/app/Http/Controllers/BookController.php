@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\BookRepositoryInterface;
+use App\Services\BookService;
 
 class BookController extends Controller
 {
-    protected $bookRepository;
+    protected $bookService;
 
-    public function __construct(BookRepositoryInterface $bookRepository)
+    public function __construct(BookService $bookService)
     {
-        $this->bookRepository = $bookRepository;
+        $this->bookService = $bookService;
     }
 
     /**
@@ -34,7 +34,7 @@ class BookController extends Controller
         $maxResults = 40;
         $startIndex = 0;
 
-        $books = $this->bookRepository->searchBooks($query, $maxResults, $startIndex);
+        $books = $this->bookService->searchBooks($query, $maxResults, $startIndex);
 
         // 検索結果をビューに渡して表示
         return view('search_results', compact('books'));
