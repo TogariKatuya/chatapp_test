@@ -56,24 +56,6 @@
         depends_on:
         - php
 
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin:latest
-        container_name: "phpmyadmin_test"
-        environment:
-        - PMA_ARBITRARY=1 # サーバ設定：サーバーをローカル以外も指定
-        - PMA_HOST=db # ホスト設定：dbを指定
-        - PMA_USER=admin # 初期ユーザー設定：adminを指定
-        - PMA_PASSWORD=secret # 初期PW設定：secretを指定
-        # db（サービス名）とのリンクを設定する
-        links:
-        - db
-        # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
-        ports:
-        - 8080:80
-        # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
-        volumes:
-        - ./phpmyadmin/sessions:/sessions
-
     node:
         image: node:14.18-alpine
         container_name: "node14.18-alpine"
