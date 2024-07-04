@@ -22,12 +22,18 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-        // リクエストからクエリを取得
-        $query = $request->input('query');
+        if ($request->isMethod('get')) {
+            // クエリのバリデーション
+            $request->validate([
+                'query' => 'required|string',
+            ], [
+                'query.required' => '検索ワードが未入力です。',
+            ]);
 
-        // クエリが空の場合は、エラーメッセージを表示して前のページにリダイレクト
-        if (!$query) {
-            return redirect()->back()->with('error', 'Please enter a search query.');
+            // リクエストからクエリを取得
+            $query = $request->input('query');
+        } else {
+            $query = $request->input('query', '');
         }
 
         // 検索結果の最大数と開始インデックスの設定
@@ -40,3 +46,4 @@ class BookController extends Controller
         return view('search_results', compact('books'));
     }
 }
+

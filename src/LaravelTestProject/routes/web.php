@@ -15,15 +15,12 @@ use App\Http\Controllers\BookController;
 */
 
 Route::get('/', function () {
-    return view('top');
-});
-
-Route::get('/login', function () {
-    return view('top');
-});
-
-Route::get('/', function () {
     return view('search');
 });
 
-Route::post('/search', [BookController::class, 'search'])->name('search');
+Route::get('/login', function () {
+    return view('search');
+});
+
+Route::get('/search', [BookController::class, 'search'])->name('search');
+

@@ -5,6 +5,7 @@ namespace App\Repositories;
 class GoogleBooksRepository implements BookRepositoryInterface
 {
     protected $baseUrl = 'https://www.googleapis.com/books/v1/volumes';
+    // protected $baseUrl = config('services.googlebooks');
 
     public function searchBooks($query, $maxResults, $startIndex)
     {

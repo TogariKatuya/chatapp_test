@@ -1,40 +1,40 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    /* ライトグレーの背景 */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* コンテンツを上部に寄せる */
     min-height: 100vh;
 }
 
 .container {
     max-width: 600px;
-    /* 検索結果のリストが幅広になるよう調整 */
     width: 100%;
     margin: 20px;
     background-color: #ffffff;
-    /* 白色の背景 */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333333;
-    /* ダークグレーのテキスト */
+    flex: 1;
 }
 
 hr {
     border: 0;
     height: 1px;
     background: #e0e0e0;
-    /* グレーの水平線 */
     width: 100%;
     margin: 20px 0;
 }
@@ -48,36 +48,31 @@ li {
     padding: 15px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
-    /* グレーに近い白色の背景 */
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
     color: #333333;
-    /* ダークグレーのテキスト */
 }
 
 p {
     color: #555555;
-    /* グレーのテキスト */
 }
 
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+a.back-button {
     color: #007bff;
-    /* リンクの青色 */
     text-decoration: none;
     font-size: 24px;
+    margin-right: 10px;
 }
 
-a:hover {
+a.back-button:hover {
     text-decoration: underline;
 }
 
-.back-button i {
-    font-size: 48px;
-    /* アイコンの大きさを2倍に設定 */
+a.back-button {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
 }
