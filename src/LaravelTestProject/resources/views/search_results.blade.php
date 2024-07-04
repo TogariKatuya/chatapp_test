@@ -29,7 +29,7 @@
             @endforeach
         </ul>
     @else
-        <p>No books found.</p>
+        <p>該当する書籍は見つかりませんでした。</p>
     @endif
     <a href="{{ url('/') }}" class="back-button">
         <i class="fas fa-arrow-left"></i>
