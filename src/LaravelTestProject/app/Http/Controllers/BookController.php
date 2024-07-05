@@ -22,28 +22,33 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-        if ($request->isMethod('get')) {
-            // クエリのバリデーション
-            $request->validate([
-                'query' => 'required|string',
-            ], [
-                'query.required' => '検索ワードが未入力です。',
-            ]);
+        // クエリのバリデーション
+        $request->validate([
+            'query' => 'required|string',
+        ], [
+            'query.required' => '検索ワードが未入力です。',
+        ]);
 
-            // リクエストからクエリを取得
-            $query = $request->input('query');
-        } else {
-            $query = $request->input('query', '');
-        }
+        // リクエストからクエリを取得
+        $query = $request->input('query');
+
+        // ページネーションのためのパラメータを取得
+        $perPage = 10;
+        $page = $request->input('page', 1);
+        $startIndex = ($page - 1) * $perPage;
 
         // 検索結果の最大数と開始インデックスの設定
-        $maxResults = 40;
-        $startIndex = 0;
+        $maxResults = 10;
 
         $books = $this->bookService->searchBooks($query, $maxResults, $startIndex);
 
         // 検索結果をビューに渡して表示
-        return view('search_results', compact('books'));
+        return view('search_results', [
+            'books' => $books,
+            'query' => $query,
+            'currentPage' => $page,
+            'perPage' => $perPage
+        ]);
     }
-}
 
+}

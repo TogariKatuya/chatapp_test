@@ -4,7 +4,6 @@
 <head>
     <title>Search Results</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <!-- Font Awesome CDNを追加 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -34,6 +33,18 @@
                     </li>
                 @endforeach
             </ul>
+
+            <div class="pagination">
+                @if ($currentPage > 1)
+                    <a href="{{ route('search', ['query' => $query, 'page' => $currentPage - 1]) }}">&laquo; 前へ</a>
+                @endif
+
+                <span>ページ {{ $currentPage }}</span>
+
+                @if (count($books) == $perPage)
+                    <a href="{{ route('search', ['query' => $query, 'page' => $currentPage + 1]) }}">次へ &raquo;</a>
+                @endif
+            </div>
         @else
             <p>該当する書籍は見つかりませんでした。</p>
         @endif
